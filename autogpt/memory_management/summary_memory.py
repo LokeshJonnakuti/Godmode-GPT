@@ -33,9 +33,10 @@ def get_newly_trimmed_messages(
 
     # Remove messages that are already present in current_context
     new_messages_not_in_context = [
-        msg for msg in new_messages if msg not in current_context and len(msg["content"]) < 4000
+        msg
+        for msg in new_messages
+        if msg not in current_context and len(msg["content"]) < 4000
     ]
-
 
     # Find the index of the last message processed
     new_index = last_memory_index

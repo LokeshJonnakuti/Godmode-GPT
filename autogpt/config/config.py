@@ -1,16 +1,17 @@
 """Configuration class to store the state of bools for different scripts access."""
 import os
 from typing import List
-from colorama import Fore
-# from autogpt.agent_manager import AgentManager
 
 import openai
 import yaml
 from auto_gpt_plugin_template import AutoGPTPluginTemplate
 from colorama import Fore
+from dotenv import load_dotenv
 
 from autogpt.singleton import Singleton
-from dotenv import load_dotenv
+
+# from autogpt.agent_manager import AgentManager
+
 
 def is_valid_int(value: str) -> bool:
     """Check if the value is a valid integer
@@ -27,10 +28,11 @@ def is_valid_int(value: str) -> bool:
     except ValueError:
         return False
 
+
 load_dotenv(verbose=True)
 
 
-class Config():
+class Config:
     """
     Configuration class to store the state of bools for different scripts access.
     """
@@ -73,7 +75,7 @@ class Config():
             "BROWSE_SPACY_LANGUAGE_MODEL", "en_core_web_sm"
         )
 
-        self.openai_api_key = os.getenv("OPENAI_API_KEY") # type: ignore
+        self.openai_api_key = os.getenv("OPENAI_API_KEY")  # type: ignore
         self.temperature = float(os.getenv("TEMPERATURE", "0"))
         self.use_azure = os.getenv("USE_AZURE") == "True"
         self.execute_local_commands = (
