@@ -102,7 +102,9 @@ def call_ai_function(
         {"role": "user", "content": args},
     ]
 
-    return create_chat_completion(cfg=cfg,model=model, messages=messages, temperature=0)
+    return create_chat_completion(
+        cfg=cfg, model=model, messages=messages, temperature=0
+    )
 
 
 # Overly simple abstraction until we create something better
@@ -173,7 +175,7 @@ def create_chat_completion(
             raise
         if attempt == num_retries - 1:
             raise
-        
+
     if response is None:
         return "OpenAI API error"
 

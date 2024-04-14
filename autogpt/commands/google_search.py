@@ -2,14 +2,14 @@
 from __future__ import annotations
 
 import json
+import os
+import random
 
-from duckduckgo_search import DDGS
 import requests
+from duckduckgo_search import DDGS
 
 from autogpt.commands.command import command
 from autogpt.config import Config
-import random
-import os
 
 # global_config = Config()
 
@@ -28,9 +28,10 @@ import os
 # ddgs = DDGS(headers=HEADERS)
 
 headers = {
-    'X-API-KEY': os.environ.get("SERPER_API_KEY"),
-    'Content-Type': 'application/json'
+    "X-API-KEY": os.environ.get("SERPER_API_KEY"),
+    "Content-Type": "application/json",
 }
+
 
 @command("google", "Google Search", '"query": "<query>"')
 def google_search(query: str, num_results: int = 8, **kwargs) -> str:
@@ -45,20 +46,21 @@ def google_search(query: str, num_results: int = 8, **kwargs) -> str:
     """
     url = "https://google.serper.dev/search"
 
-    payload = json.dumps({
-        "q": query,
-    })
+    payload = json.dumps(
+        {
+            "q": query,
+        }
+    )
 
     response = requests.request("POST", url, headers=headers, data=payload)
 
     results = response.json()
     results = results["organic"]
 
-    search_results = [{
-        "title": r["title"],
-        "link": r["link"],
-        "snippet": r["snippet"]
-    } for r in results[0:num_results]]
+    search_results = [
+        {"title": r["title"], "link": r["link"], "snippet": r["snippet"]}
+        for r in results[0:num_results]
+    ]
 
     return json.dumps(search_results, indent=1)
 
