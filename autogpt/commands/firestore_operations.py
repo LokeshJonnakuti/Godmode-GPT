@@ -4,7 +4,6 @@ from __future__ import annotations
 from typing import Literal
 
 from autogpt.api_utils import get_file, list_files, write_file
-
 from autogpt.commands.command import command
 from autogpt.config import Config
 
@@ -48,7 +47,9 @@ def write_to_file(filename: str, text: str, cfg, **kwargs):
 @command(
     "append_to_file", "Append to file", '"filename": "<filename>", "text": "<text>"'
 )
-def append_to_file(filename: str, text: str, should_log: bool = True, cfg = None, **kwargs) -> None:
+def append_to_file(
+    filename: str, text: str, should_log: bool = True, cfg=None, **kwargs
+) -> None:
     """Append text to a file
 
     Args:
@@ -64,7 +65,7 @@ def append_to_file(filename: str, text: str, should_log: bool = True, cfg = None
     except Exception as err:
         text = ""
 
-    text +=  "\n" + text
+    text += "\n" + text
     write_file(text, filename, cfg.agent_id)
 
     return f"Successfully appended to {filename}"
@@ -80,6 +81,4 @@ def f_list_files(cfg, **kwargs) -> list[str]:
     Returns:
         list[str]: A list of files found in the directory
     """
-    return list_files(
-        cfg.agent_id
-    )
+    return list_files(cfg.agent_id)

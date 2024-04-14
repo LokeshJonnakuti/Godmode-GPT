@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import json
-from autogpt.config.config import Config
 
 from autogpt.commands.command import command
+from autogpt.config.config import Config
 from autogpt.llm import call_ai_function
 
 
