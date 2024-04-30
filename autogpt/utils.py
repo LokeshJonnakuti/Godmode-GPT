@@ -78,8 +78,8 @@ def readable_file_size(size, decimal_places=2):
         size: Size in bytes
         decimal_places (int): Number of decimal places to display
     """
-    unit = 'B'
-    for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+    unit = "B"
+    for unit in ["B", "KB", "MB", "GB", "TB"]:
         if size < 1024.0:
             break
         size /= 1024.0
@@ -89,8 +89,9 @@ def readable_file_size(size, decimal_places=2):
 def get_bulletin_from_web():
     try:
         response = requests.get(
-            "https://raw.githubusercontent.com/Significant-Gravitas/Auto-GPT/master/BULLETIN.md", 
-        timeout=60)
+            "https://raw.githubusercontent.com/Significant-Gravitas/Auto-GPT/master/BULLETIN.md",
+            timeout=60,
+        )
         if response.status_code == 200:
             return response.text
     except requests.exceptions.RequestException:

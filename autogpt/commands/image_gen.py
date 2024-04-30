@@ -14,7 +14,12 @@ from autogpt.logs import logger
 global_config = Config()
 
 
-@command("generate_image", "Generate Image", '"prompt": "<prompt>"', global_config.image_provider)
+@command(
+    "generate_image",
+    "Generate Image",
+    '"prompt": "<prompt>"',
+    global_config.image_provider,
+)
 def generate_image(prompt: str, size: int = 256, **kwargs) -> str:
     """Generate an image from a prompt.
 
@@ -49,9 +54,7 @@ def generate_image_with_hf(prompt: str, filename: str) -> str:
     Returns:
         str: The filename of the image
     """
-    API_URL = (
-        f"https://api-inference.huggingface.co/models/{global_config.huggingface_image_model}"
-    )
+    API_URL = f"https://api-inference.huggingface.co/models/{global_config.huggingface_image_model}"
     if global_config.huggingface_api_token is None:
         raise ValueError(
             "You need to set your Hugging Face API token in the config file."
@@ -67,7 +70,8 @@ def generate_image_with_hf(prompt: str, filename: str) -> str:
         json={
             "inputs": prompt,
         },
-    timeout=60)
+        timeout=60,
+    )
 
     image = Image.open(io.BytesIO(response.content))
     logger.info(f"Image Generated for prompt:{prompt}")
@@ -152,7 +156,8 @@ def generate_image_with_sd_webui(
             "n_iter": 1,
             **extra,
         },
-    timeout=60)
+        timeout=60,
+    )
 
     logger.info(f"Image Generated for prompt:{prompt}")
 
