@@ -11,8 +11,8 @@ from typing import Any, Optional, Type
 
 import distro
 import yaml
-from autogpt.commands.command import CommandRegistry
 
+from autogpt.commands.command import CommandRegistry
 from autogpt.prompts.generator import PromptGenerator
 
 # Soon this will go in a folder where it remembers more stuff about the run(s)

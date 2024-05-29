@@ -1,8 +1,8 @@
 import os
+import secrets
 import sys
 
 from dotenv import load_dotenv
-import secrets
 
 if "pytest" in sys.argv or "pytest" in sys.modules or os.getenv("CI"):
     print("Setting random seed to 42")
