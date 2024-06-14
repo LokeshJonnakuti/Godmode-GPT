@@ -1,9 +1,10 @@
 import logging
 import os
+
 from playsound import playsound
+from security import safe_requests
 
 from autogpt.speech.base import VoiceBase
-from security import safe_requests
 
 
 class BrianSpeech(VoiceBase):

@@ -1,4 +1,5 @@
 import json
+
 from flask import request
 
 PROJECT = "consulting-17de1"
