@@ -1,9 +1,9 @@
 from datetime import datetime
 
 from colorama import Fore, Style
+
 from autogpt.agent_manager import AgentManager
 from autogpt.api_utils import upload_log
-
 from autogpt.app import execute_command, get_command
 from autogpt.config import Config
 from autogpt.json_utils.json_fix_llm import fix_json_using_multiple_techniques
@@ -74,7 +74,7 @@ class Agent:
         assistant_reply: str,
         agents: dict[int, tuple[str, list[dict[str, str]], str]],
         prompt_generator: PromptGenerator,
-        summary_memory = (
+        summary_memory=(
             "I was created."  # Initial memory necessary to avoid hallucination
         ),
     ):
@@ -378,7 +378,9 @@ class Agent:
 
             # Execute command
             if command_name is not None and command_name.lower().startswith("error"):
-                result = f"Command {command_name} threw the following error: {arguments}"
+                result = (
+                    f"Command {command_name} threw the following error: {arguments}"
+                )
             elif command_name == "human_feedback":
                 result = f"Human feedback: {self.user_input}"
             else:
@@ -447,7 +449,9 @@ class Agent:
                     self.ai_name, self.assistant_reply_json
                 )
                 godmode_log += log
-                self.command_name, self.arguments = get_command(self.assistant_reply_json)
+                self.command_name, self.arguments = get_command(
+                    self.assistant_reply_json
+                )
 
                 # command_name, arguments = assistant_reply_json_valid["command"]["name"], assistant_reply_json_valid["command"]["args"]
             except Exception as e:
@@ -470,4 +474,3 @@ class Agent:
             self.assistant_reply,
             result,
         )
-    

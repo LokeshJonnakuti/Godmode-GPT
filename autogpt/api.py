@@ -1,40 +1,32 @@
 import datetime
-from functools import wraps
 import json
 import logging
+import os
 import time
 import traceback
+from functools import wraps
 from uuid import uuid4
-from autogpt.commands.command import CommandRegistry
-from autogpt.config.ai_config import AIConfig
-from autogpt.memory import get_memory
-import autogpt.llm.chat as chat
-from autogpt.config import Config
-import os
-from openai.error import OpenAIError
+
 import firebase_admin
 from firebase_admin import auth as firebase_auth
-from autogpt.llm import create_chat_completion
-from autogpt.api_log import (
-    CRITICAL,
-    ERROR,
-    WARNING,
-    print_log,
-)
-from autogpt.api_utils import (
-    generate_task_name,
-    get_file_urls,
-)
-import logging
-from autogpt.agent.agent import Agent
+from google.cloud import datastore, firestore, logging
+from openai.error import OpenAIError
 
+import autogpt.llm.chat as chat
+from autogpt.agent.agent import Agent
+from autogpt.api_log import CRITICAL, ERROR, WARNING, print_log
+from autogpt.api_utils import generate_task_name, get_file_urls
+from autogpt.commands.command import CommandRegistry
 from autogpt.config import Config
+from autogpt.config.ai_config import AIConfig
+from autogpt.llm import create_chat_completion
 from autogpt.logs import logger
 from autogpt.memory import get_memory
 from autogpt.memory.pinecone import PineconeMemory
-from google.cloud import datastore, firestore, logging
-
-from autogpt.prompts.prompt import build_default_prompt_generator, construct_main_ai_config
+from autogpt.prompts.prompt import (
+    build_default_prompt_generator,
+    construct_main_ai_config,
+)
 
 fireclient = firestore.Client()
 client = datastore.Client()
@@ -424,9 +416,9 @@ def godmode_main():
 
         try:
             rga = request_data.get("rga", None)
-            logger = logging_client.logger('rga-logger') 
+            logger = logging_client.logger("rga-logger")
             extra_info = {"has_rga": rga}
-            logger.log_struct(info=extra_info, severity='INFO')
+            logger.log_struct(info=extra_info, severity="INFO")
         except Exception as e:
             print_log("RGA logging failed", severity=WARNING, errorMsg=e)
 
@@ -528,12 +520,14 @@ def api_files():
         print_log("/api/files error", severity=ERROR, errorMsg=e)
         raise e
 
+
 def convert_none_or_date_to_isoformat(obj):
     if obj is None:
         return None
     if isinstance(obj, datetime.datetime):
         return obj.isoformat()
     return None
+
 
 @app.route("/api/sessions", methods=["POST"])  # type: ignore
 @limiter.limit("16 per minute")
@@ -560,11 +554,14 @@ def sessions():
                         "agent_id": r.get("agent_id", ""),
                         "ai_name": r.get("ai_name", ""),
                         "ai_role": r.get("ai_role", ""),
-                        "created": convert_none_or_date_to_isoformat(r.get("created", None)),
+                        "created": convert_none_or_date_to_isoformat(
+                            r.get("created", None)
+                        ),
                     }
                     for r in results
                 ],
-            }, default=str
+            },
+            default=str,
         )
 
     except Exception as e:

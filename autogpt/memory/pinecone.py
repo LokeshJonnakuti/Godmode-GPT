@@ -1,10 +1,10 @@
 import pinecone
 from colorama import Fore, Style
-from autogpt.api_log import CRITICAL, ERROR, print_log
 
+from autogpt.api_log import CRITICAL, ERROR, print_log
+from autogpt.config import Config
 from autogpt.llm import get_ada_embedding
 from autogpt.memory.base import MemoryProvider
-from autogpt.config import Config
 
 global_config = Config()
 
@@ -54,7 +54,13 @@ class PineconeMemory(MemoryProvider):
                 namespace=namespace,
             )
         except Exception as e:
-            print_log("Pinecone upsert error", severity=CRITICAL, errorMsg=e, pine_data=data, pine_namespace=namespace)
+            print_log(
+                "Pinecone upsert error",
+                severity=CRITICAL,
+                errorMsg=e,
+                pine_data=data,
+                pine_namespace=namespace,
+            )
             raise e
         _text = f"Inserting data into memory at index: {self.vec_num}:\n data: {data}"
         self.vec_num += 1
@@ -84,7 +90,13 @@ class PineconeMemory(MemoryProvider):
                 namespace=namespace,
             )
         except Exception as e:
-            print_log("Pinecone query error", severity=CRITICAL, errorMsg=e, pine_query=query_embedding, pine_namespace=namespace)
+            print_log(
+                "Pinecone query error",
+                severity=CRITICAL,
+                errorMsg=e,
+                pine_query=query_embedding,
+                pine_namespace=namespace,
+            )
             raise e
         sorted_results = sorted(results.matches, key=lambda x: x.score)
         return [str(item["metadata"]["raw_text"]) for item in sorted_results]
