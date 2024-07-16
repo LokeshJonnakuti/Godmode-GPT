@@ -2,8 +2,8 @@
 from __future__ import annotations
 
 from typing import List, Union
-from autogpt.api_log import print_log
 
+from autogpt.api_log import print_log
 from autogpt.config.config import Config
 from autogpt.llm import Message, create_chat_completion
 
@@ -129,7 +129,8 @@ class AgentManager:
             return agent_reply
         except Exception as e:
             # print trace
-            import traceback, json
+            import json
+            import traceback
 
             print_log(
                 "AGENT ERROR CHAT",
