@@ -9,11 +9,10 @@ from typing import Any, Tuple
 
 from colorama import Fore, Style
 
+from autogpt.config import Config
 from autogpt.log_cycle.json_handler import JsonFileHandler, JsonFormatter
 from autogpt.singleton import Singleton
 from autogpt.speech import say_text
-
-from autogpt.config import Config
 
 global_config = Config()
 
@@ -102,7 +101,7 @@ class Logger(metaclass=Singleton):
                 content = " ".join(content)
         else:
             content = ""
-        
+
         return title + content + "\n"
 
     def debug(
@@ -189,24 +188,24 @@ Output stream to console using simulated typing
 
 # class TypingConsoleHandler(logging.StreamHandler):
 #     def emit(self, record):
-        # min_typing_speed = 0.05
-        # max_typing_speed = 0.01
+# min_typing_speed = 0.05
+# max_typing_speed = 0.01
 
-        # msg = self.format(record)
-        # try:
-        #     words = msg.split()
-        #     for i, word in enumerate(words):
-        #         print(word, end="", flush=True)
-        #         if i < len(words) - 1:
-        #             print(" ", end="", flush=True)
-        #         typing_speed = random.uniform(min_typing_speed, max_typing_speed)
-        #         # time.sleep(typing_speed)
-        #         # type faster after each word
-        #         min_typing_speed = min_typing_speed * 0.95
-        #         max_typing_speed = max_typing_speed * 0.95
-        #     print()
-        # except Exception:
-        #     self.handleError(record)
+# msg = self.format(record)
+# try:
+#     words = msg.split()
+#     for i, word in enumerate(words):
+#         print(word, end="", flush=True)
+#         if i < len(words) - 1:
+#             print(" ", end="", flush=True)
+#         typing_speed = random.uniform(min_typing_speed, max_typing_speed)
+#         # time.sleep(typing_speed)
+#         # type faster after each word
+#         min_typing_speed = min_typing_speed * 0.95
+#         max_typing_speed = max_typing_speed * 0.95
+#     print()
+# except Exception:
+#     self.handleError(record)
 
 
 class ConsoleHandler(logging.StreamHandler):
