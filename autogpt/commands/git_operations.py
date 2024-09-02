@@ -27,7 +27,11 @@ def clone_repository(url: str, clone_path: str, **kwargs) -> str:
         str: The result of the clone operation.
     """
     split_url = url.split("//")
-    auth_repo_url = f"//{global_config.github_username}:{global_config.github_api_key}@".join(split_url)
+    auth_repo_url = (
+        f"//{global_config.github_username}:{global_config.github_api_key}@".join(
+            split_url
+        )
+    )
     try:
         Repo.clone_from(url=auth_repo_url, to_path=clone_path)
         return f"""Cloned {url} to {clone_path}"""

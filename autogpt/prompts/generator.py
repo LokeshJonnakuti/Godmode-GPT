@@ -29,7 +29,7 @@ class PromptGenerator:
                 "plan": "- short bulleted\n- list that conveys\n- long-term plan",
                 "criticism": "constructive self-criticism",
                 "speak": "thoughts summary to say to user",
-                "relevant_goal": "a single number representing which goal is most relevant to the current task"
+                "relevant_goal": "a single number representing which goal is most relevant to the current task",
             },
             "command": {"name": "command name", "args": {"arg name": "value"}},
         }

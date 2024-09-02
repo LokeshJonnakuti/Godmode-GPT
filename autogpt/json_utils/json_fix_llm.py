@@ -64,7 +64,11 @@ def auto_fix_json(json_string: str, schema: str, cfg: Config) -> str:
     if not json_string.startswith("`"):
         json_string = "```json\n" + json_string + "\n```"
     result_string = call_ai_function(
-        function_string, args, description_string, model=global_config.fast_llm_model, cfg=cfg
+        function_string,
+        args,
+        description_string,
+        model=global_config.fast_llm_model,
+        cfg=cfg,
     )
     logger.debug("------------ JSON FIX ATTEMPT ---------------")
     logger.debug(f"Original JSON: {json_string}")
@@ -83,7 +87,9 @@ def auto_fix_json(json_string: str, schema: str, cfg: Config) -> str:
         return "failed"
 
 
-def fix_json_using_multiple_techniques(assistant_reply: str, cfg: Config) -> Dict[Any, Any]:
+def fix_json_using_multiple_techniques(
+    assistant_reply: str, cfg: Config
+) -> Dict[Any, Any]:
     """Fix the given JSON string to make it parseable and fully compliant with two techniques.
 
     Args:
@@ -115,7 +121,8 @@ def fix_json_using_multiple_techniques(assistant_reply: str, cfg: Config) -> Dic
     logger.debug("Assistant reply JSON: %s", str(assistant_reply_json))
     if assistant_reply_json == {}:
         assistant_reply_json = attempt_to_fix_json_by_finding_outermost_brackets(
-            assistant_reply, cfg=cfg,
+            assistant_reply,
+            cfg=cfg,
         )
 
     logger.debug("Assistant reply JSON 2: %s", str(assistant_reply_json))
