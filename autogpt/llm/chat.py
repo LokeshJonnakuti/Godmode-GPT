@@ -1,5 +1,4 @@
 import time
-from random import shuffle
 
 from openai.error import RateLimitError
 from autogpt.api_log import print_log
@@ -11,6 +10,7 @@ from autogpt.llm.llm_utils import create_chat_completion
 from autogpt.llm.token_counter import count_message_tokens
 from autogpt.log_cycle.log_cycle import CURRENT_CONTEXT_FILE_NAME
 from autogpt.logs import logger
+import secrets
 
 
 def create_chat_message(role, content) -> Message:
@@ -90,12 +90,12 @@ def chat_with_ai(
                 relevant_memory = ""
             else:
                 recent_history = full_message_history[-5:]
-                shuffle(recent_history)
+                secrets.SystemRandom().shuffle(recent_history)
                 relevant_memories = permanent_memory.get_relevant(
                     str(recent_history), 5
                 )
                 if relevant_memories:
-                    shuffle(relevant_memories)
+                    secrets.SystemRandom().shuffle(relevant_memories)
                 relevant_memory = str(relevant_memories)
 
             # logger.debug(f"Memory Stats: {permanent_memory.get_stats()}")
