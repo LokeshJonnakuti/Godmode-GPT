@@ -13,11 +13,11 @@ import openapi_python_client
 import requests
 from auto_gpt_plugin_template import AutoGPTPluginTemplate
 from openapi_python_client.cli import Config as OpenAPIConfig
+from security import safe_requests
 
 from autogpt.config import Config
 from autogpt.logs import logger
 from autogpt.models.base_open_ai_plugin import BaseOpenAIPlugin
-from security import safe_requests
 
 
 def inspect_zip_for_modules(zip_path: str, debug: bool = False) -> list[str]:

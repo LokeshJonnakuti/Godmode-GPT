@@ -2,8 +2,8 @@
 from typing import Dict, Generator, Optional
 
 import spacy
-from autogpt.commands.web_requests import create_message
 
+from autogpt.commands.web_requests import create_message
 from autogpt.config import Config
 from autogpt.llm import count_message_tokens, create_chat_completion
 from autogpt.logs import logger
