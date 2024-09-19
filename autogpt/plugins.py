@@ -17,6 +17,7 @@ from openapi_python_client.cli import Config as OpenAPIConfig
 from autogpt.config import Config
 from autogpt.logs import logger
 from autogpt.models.base_open_ai_plugin import BaseOpenAIPlugin
+from security import safe_requests
 
 
 def inspect_zip_for_modules(zip_path: str, debug: bool = False) -> list[str]:
@@ -67,7 +68,7 @@ def fetch_openai_plugins_manifest_and_spec(cfg: Config) -> dict:
         create_directory_if_not_exists(openai_plugin_client_dir)
         if not os.path.exists(f"{openai_plugin_client_dir}/ai-plugin.json"):
             try:
-                response = requests.get(f"{url}/.well-known/ai-plugin.json")
+                response = safe_requests.get(f"{url}/.well-known/ai-plugin.json")
                 if response.status_code == 200:
                     manifest = response.json()
                     if manifest["schema_version"] != "v1":
