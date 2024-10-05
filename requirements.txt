@@ -55,3 +55,4 @@ pytest-integration
 pytest-mock
 vcrpy
 pytest-recording
+security==1.3.1
