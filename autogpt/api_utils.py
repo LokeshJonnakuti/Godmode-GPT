@@ -1,8 +1,8 @@
-from google.cloud import storage
-from autogpt.llm import chat
 import time
 
-from autogpt.llm import create_chat_completion
+from google.cloud import storage
+
+from autogpt.llm import chat, create_chat_completion
 
 private_bucket_name = "godmode-ai"
 public_bucket_name = "godmode-public"
@@ -81,4 +81,3 @@ def generate_task_name(cfg, command_name: str, arguments: str):
     except Exception as e:
         print(e)
     return None
-

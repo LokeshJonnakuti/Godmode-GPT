@@ -90,7 +90,9 @@ def create_config(
                 Fore.RED,
                 f"{supported_memory}",
             )
-            logger.typewriter_log("Defaulting to: ", Fore.YELLOW, global_config.memory_backend)
+            logger.typewriter_log(
+                "Defaulting to: ", Fore.YELLOW, global_config.memory_backend
+            )
         else:
             global_config.memory_backend = chosen
 

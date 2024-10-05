@@ -11,9 +11,9 @@ from redis.commands.search.indexDefinition import IndexDefinition, IndexType
 from redis.commands.search.query import Query
 
 from autogpt.llm import get_ada_embedding
+from autogpt.llm_utils import create_embedding_with_ada
 from autogpt.logs import logger
 from autogpt.memory.base import MemoryProvider
-from autogpt.llm_utils import create_embedding_with_ada
 
 SCHEMA = [
     TextField("data"),

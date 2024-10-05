@@ -128,7 +128,9 @@ def execute_command(
                     command_name == command["label"].lower()
                     or command_name == command["name"].lower()
                 ):
-                    return command["function"](**arguments, cfg=cfg, agent_manager=agent_manager)
+                    return command["function"](
+                        **arguments, cfg=cfg, agent_manager=agent_manager
+                    )
             return (
                 f"Unknown command '{command_name}'. Please refer to the 'COMMANDS'"
                 " list for available commands and only respond in the specified JSON"
@@ -139,7 +141,9 @@ def execute_command(
 
 
 @command(
-    "get_text_summary", "Get text summary from a single URL", '"url": "<single url>", "question": "<question>"'
+    "get_text_summary",
+    "Get text summary from a single URL",
+    '"url": "<single url>", "question": "<question>"',
 )
 @validate_url
 def get_text_summary(url: str, question: str, cfg: Config, **kwargs) -> str:
@@ -157,7 +161,9 @@ def get_text_summary(url: str, question: str, cfg: Config, **kwargs) -> str:
     return f""" "Result" : {summary}"""
 
 
-@command("get_hyperlinks", "Get text summary from a single URL", '"url": "<single url>"')
+@command(
+    "get_hyperlinks", "Get text summary from a single URL", '"url": "<single url>"'
+)
 @validate_url
 def get_hyperlinks(url: str, **kwargs) -> Union[str, List[str]]:
     """Return the results of a Google search
@@ -168,7 +174,7 @@ def get_hyperlinks(url: str, **kwargs) -> Union[str, List[str]]:
     Returns:
         str or list: The hyperlinks on the page
     """
-    
+
     return scrape_links(url)
 
 
@@ -177,7 +183,14 @@ def get_hyperlinks(url: str, **kwargs) -> Union[str, List[str]]:
     "Start GPT Agent",
     '"name": "<name>", "task": "<short_task_desc>", "prompt": "<prompt>"',
 )
-def start_agent(name: str, task: str, prompt: str, cfg: Config, agent_manager: AgentManager, **kwargs) -> str:
+def start_agent(
+    name: str,
+    task: str,
+    prompt: str,
+    cfg: Config,
+    agent_manager: AgentManager,
+    **kwargs,
+) -> str:
     """Start an agent with a given name, task, and prompt
 
     Args:

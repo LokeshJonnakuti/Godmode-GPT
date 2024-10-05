@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+
 from security import safe_command
 
 
@@ -78,7 +79,9 @@ Not what I need."""
 
     command = f"{sys.executable} -m autogpt"
 
-    process = safe_command.run(subprocess.Popen, command,
+    process = safe_command.run(
+        subprocess.Popen,
+        command,
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
