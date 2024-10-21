@@ -78,8 +78,8 @@ def readable_file_size(size, decimal_places=2):
         size: Size in bytes
         decimal_places (int): Number of decimal places to display
     """
-    unit = 'B'
-    for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+    unit = "B"
+    for unit in ["B", "KB", "MB", "GB", "TB"]:
         if size < 1024.0:
             break
         size /= 1024.0
