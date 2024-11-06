@@ -67,7 +67,7 @@ def generate_image_with_hf(prompt: str, filename: str) -> str:
         json={
             "inputs": prompt,
         },
-    )
+    timeout=60)
 
     image = Image.open(io.BytesIO(response.content))
     logger.info(f"Image Generated for prompt:{prompt}")
@@ -152,7 +152,7 @@ def generate_image_with_sd_webui(
             "n_iter": 1,
             **extra,
         },
-    )
+    timeout=60)
 
     logger.info(f"Image Generated for prompt:{prompt}")
 

@@ -49,7 +49,7 @@ def google_search(query: str, num_results: int = 8, **kwargs) -> str:
         "q": query,
     })
 
-    response = requests.request("POST", url, headers=headers, data=payload)
+    response = requests.request("POST", url, headers=headers, data=payload, timeout=60)
 
     results = response.json()
     results = results["organic"]
